@@ -14,6 +14,7 @@ export default () => {
           count: 20
         }
       });
+      //      console.log(response.data.restaurants);
       setResults(response.data.restaurants);
     } catch (err) {
       setErrorMessage("Something went wrong!");

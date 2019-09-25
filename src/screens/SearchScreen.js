@@ -7,9 +7,13 @@ import ResultsList from "../components/ResultsList";
 const SearchScreen = () => {
   const [term, setTerm] = useState("");
   const [searchApi, results, errorMessage] = useRestaurants();
-  console.log(results);
 
-  const filterResultsByPrice = price => {};
+  const filterResultsByPrice = price => {
+    // price === '$' || '$$' || '$$$'
+    return results.filter(result => {
+      return result.restaurant.price_range === price;
+    });
+  };
 
   return (
     <View>
@@ -20,9 +24,9 @@ const SearchScreen = () => {
       />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
       <Text>We have found {results.length} restaurants!</Text>
-      <ResultsList title="Cost Effective" />
-      <ResultsList title="Bit Pricier" />
-      <ResultsList title="Big Spender" />
+      <ResultsList results={filterResultsByPrice(1)} title="Cost Effective" />
+      <ResultsList results={filterResultsByPrice(2)} title="Bit Pricier" />
+      <ResultsList results={filterResultsByPrice(3)} title="Big Spender" />
     </View>
   );
 };
